@@ -1,0 +1,35 @@
+body {
+  background-color: #BC4730;
+  background-image: url("../img/burger.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+html {
+  height: 100%;
+}
+
+.burgerRow {
+  min-height: 400px;
+}
+
+.menuRow {
+  position: fixed;
+  bottom: 8%;
+  width: 100%;
+}
+
+.seeAll {
+  position: fixed;
+  top:10%;
+}
+
+.uneatenHere {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.eatenHere {
+  max-height: 500px;
+  overflow-y: scroll;
+}

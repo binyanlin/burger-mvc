@@ -5,13 +5,33 @@ const orm = {
     res.render('index')
   },
   selectAll: (req, res) => {
-    console.log("selectAll route hit")
+    connection.query(`SELECT * FROM burgers ORDER BY id DESC`, function(err, data) {
+      if(err) throw err;
+      let uneaten = [];
+      let eaten = [];
+      data.forEach(burger => {
+        if (burger.devoured) {
+          eaten.push({id:burger.id, burger:burger.burger_name})
+        } else {
+          uneaten.push({id:burger.id, burger:burger.burger_name})
+        }
+      })
+      res.render('index', {eaten, uneaten});
+    })
   },
   insertOne: (req, res) => {
-    console.log("insertOne route hit")
+    let newBurger = req.body.burger;
+    connection.query(`INSERT INTO burgers (burger_name) VALUES (?)`, [newBurger], function(err, data) {
+      if (err) throw err;
+      res.redirect('/select');
+    })
   },
   updateOne: (req, res) => {
-    console.log("updateOne route hit")
+    let id = req.params.id
+    connection.query(`UPDATE burgers SET devoured = 1 WHERE id = ?`,[id], function(err, data) {
+      if (err) throw err;
+      res.redirect('/select');
+    })
   }
 }
 
